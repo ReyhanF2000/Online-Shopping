@@ -40,7 +40,6 @@ cursor: pointer;
 `
 const Total = styled.span``
 export default function Sidebar({ open, onClickClose, data, onINCREASE, onDECREASE, onDELETE, onRESET, totalPrice }) {
-    console.log(open)
     return (
         <Wrapper
         className=
