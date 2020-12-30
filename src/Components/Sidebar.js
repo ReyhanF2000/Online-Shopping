@@ -4,9 +4,8 @@ import { FaWindowClose } from 'react-icons/fa';
 import ShoppedItems from './ShoppedItems'
 import '../App.css';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``
 
-`
 const Close = styled.span`
 font-size: 1.7rem;
   cursor: pointer;
@@ -22,7 +21,6 @@ margin-top: 2rem;
 letter-spacing: 0.1rem;
 text-align: center;
 `
-
 const Price = styled.h3`
 text-transform: capitalize;
 margin-bottom: 1rem;
@@ -42,10 +40,10 @@ const Total = styled.span``
 export default function Sidebar({ open, onClickClose, data, onINCREASE, onDECREASE, onDELETE, onRESET, totalPrice }) {
     return (
         <Wrapper
-        className=
-        {open ?
-            'sidebar open':
-            'sidebar close'}>
+            className=
+            {open ?
+                'sidebar open' :
+                'sidebar close'}>
             <Close onClick={onClickClose}>
                 <FaWindowClose />
             </Close>

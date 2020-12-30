@@ -35,21 +35,23 @@ letter-spacing: 0.1rem;
 text-align: center;
 `
 export default function Product({ item, onShop }) {
-    const [show, setShow] = useState(false)
+    const [showButton, setShowButton] = useState(false)
+
     function handleShowShopping() {
-        setShow(true)
+        setShowButton(true)
     }
 
     function handleCloseShopping() {
-        setShow(false)
+        setShowButton(false)
     }
+
     return (
         <Wrapper
             onMouseEnter={handleShowShopping}
             onMouseLeave={handleCloseShopping}>
             <Subwrapper>
                 <Img src={item.src} />
-                {show && <Button
+                {showButton && <Button
                     onClick={(e) => onShop(e)}
                 >
                     <FaShoppingCart />

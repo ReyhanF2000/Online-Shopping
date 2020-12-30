@@ -3,81 +3,47 @@ import Navbar from './Components/Navbar';
 import Introduction from './Components/Introduction';
 import Products from './Components/Products';
 import Sidebar from './Components/Sidebar';
-import { useState } from 'react';
+import { useReducer } from 'react';
+import { reducer } from './Reducer/reducer'
+import { ShowSidebar, TotalShop, Increase, Decrease, Delete, Reset } from './Action/actions';
+import { data } from './Data/data'
 
-const data = [
-  { number: 0, id: 1, title: "Queen Panel Bed", price: '80.99', src: "../Img/product-1.jpeg" },
-  { number: 0, id: 2, title: "King Panel Bed", price: '95.99', src: "../Img/product-2.jpeg" },
-  { number: 0, id: 3, title: "Single Panel Bed", price: '40.99', src: "../Img/product-3.jpeg" },
-  { number: 0, id: 4, title: "Twin Panel Bed", price: '75.99', src: "../Img/product-4.jpeg" },
-  { number: 0, id: 5, title: "Fridge", price: '88.99', src: "../Img/product-5.jpeg" },
-  { number: 0, id: 6, title: "Dresser", price: '32.99', src: "../Img/product-6.jpeg" },
-  { number: 0, id: 7, title: "Couch", price: '45.99', src: "../Img/product-7.jpeg" },
-  { number: 0, id: 8, title: "Table", price: '33.99', src: "../Img/product-8.jpeg" }
-]
 function App() {
-  const [show, setShow] = useState(false)
-  const [items, setItems] = useState([])
+  const [state, dispatch] = useReducer(reducer, {
+    show: false,
+    items: []
+  })
 
   function handleShowSidebar() {
-    setShow(true)
+    dispatch(ShowSidebar(!state.show))
   }
   function handleCloseSidebar() {
-    setShow(false)
-  }
-
-  function IncreseNumberItem(id, copyState) {
-    const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number + 1
-    return copyState
-  }
-
-  function UnshiftItem(id, copyState, CopyData) {
-    const index = CopyData.findIndex(item => item.id === id)
-    const item = { ...CopyData[index] }
-    item.number = item.number + 1
-    copyState.unshift(item)
-    return copyState
+    dispatch(ShowSidebar(!state.show))
   }
 
   function handleTotalShop(id) {
-    const CopyData = [...data]
-    const copyState = [...items]
-    const findSItem = copyState.find(item => item.id === id)
-    setItems(findSItem ? IncreseNumberItem(id, copyState) : UnshiftItem(id, copyState, CopyData))
+    dispatch(TotalShop(id))
   }
 
   function handleIncrease(id) {
-    const copyState = [...items]
-    const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number + 1
-    setItems(copyState)
+    dispatch(Increase(id))
   }
 
   function handleDecrease(id) {
-    const copyState = [...items]
-    const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number - 1
-    if (copyState[index].number === 0) {
-      copyState.splice(index, 1)
-    }
-    setItems(copyState)
+    dispatch(Decrease(id))
   }
 
   function handleDelete(id) {
-    const copyState = [...items]
-    const index = copyState.findIndex(item => item.id === id)
-    copyState.splice(index, 1)
-    setItems(copyState)
+    dispatch(Delete(id))
   }
-  
-  function handleRESET() {
-    setItems([])
+
+  function handleReset() {
+    dispatch(Reset())
   }
 
   function calculateValue() {
     let counts = 0
-    items.forEach(item => {
+    state.items.forEach(item => {
       counts += item.number
     })
     return counts
@@ -85,7 +51,7 @@ function App() {
 
   function calculateTotalPrice() {
     let counts = 0
-    items.forEach(item => {
+    state.items.forEach(item => {
       counts += item.number * Number(item.price)
     })
     return counts.toFixed(2)
@@ -98,13 +64,13 @@ function App() {
     />
     <Sidebar
       onClickClose={handleCloseSidebar}
-      data={items}
+      data={state.items}
       onINCREASE={handleIncrease}
       onDECREASE={handleDecrease}
       onDELETE={handleDelete}
-      onRESET={handleRESET}
+      onRESET={handleReset}
       totalPrice={calculateTotalPrice()}
-      open={show}
+      open={state.show}
     />
     <Introduction />
     <Products
