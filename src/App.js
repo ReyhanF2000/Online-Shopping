@@ -28,7 +28,9 @@ function App() {
 
   function IncreseNumberItem(id, copyState) {
     const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number + 1
+    const item = { ...copyState[index] }
+    item.number = item.number + 1
+    copyState[index] = item
     return copyState
   }
 
@@ -50,14 +52,18 @@ function App() {
   function handleIncrease(id) {
     const copyState = [...items]
     const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number + 1
+    const item = { ...copyState[index] }
+    item.number = item.number + 1
+    copyState[index] = item
     setItems(copyState)
   }
 
   function handleDecrease(id) {
     const copyState = [...items]
     const index = copyState.findIndex(item => item.id === id)
-    copyState[index].number = copyState[index].number - 1
+    const item = { ...copyState[index] }
+    item.number = item.number -1
+    copyState[index] = item
     if (copyState[index].number === 0) {
       copyState.splice(index, 1)
     }
