@@ -23,7 +23,7 @@ const Items = styled.div`
   grid-column-gap: 1.5rem;
   grid-row-gap: 2rem;
 `
-export default function Products() {
+export default function Products({ dispatch }) {
     return (
         <Wrapper>
             <Box>
@@ -34,6 +34,7 @@ export default function Products() {
                     <Product
                         key={item.id}
                         item={item}
+                        dispatch={dispatch}
                     />
                 )}
             </Items>

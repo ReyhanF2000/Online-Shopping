@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { FaBars, FaCartPlus } from 'react-icons/fa';
 import logo from '../Img/Logo.png';
-import { myContext } from '../Context/context';
 import { ShowSidebar } from '../Action/actions';
 
 const Wrapper = styled.div`
@@ -45,9 +44,7 @@ padding: 0 5px;
 border-radius: 30%;
 color: #fdfdfd;
 `
-export default function Navbar() {
-    const { state, dispatch } = useContext(myContext)
-
+export default function Navbar({ state, dispatch }) {
     function handleShowSidebar() {
         dispatch(ShowSidebar(!state.show))
     }

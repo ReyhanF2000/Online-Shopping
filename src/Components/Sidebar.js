@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { myContext } from '../Context/context'
+import React from 'react'
 import { ShowSidebar, Reset } from '../Action/actions'
 import ShoppedItems from './ShoppedItems'
 import styled from 'styled-components'
@@ -40,8 +39,7 @@ cursor: pointer;
 `
 const Total = styled.span``
 
-export default function Sidebar() {
-    const { state, dispatch } = useContext(myContext)
+export default function Sidebar({ state, dispatch }) {
 
     function handleCloseSidebar() {
         dispatch(ShowSidebar(!state.show))
@@ -58,6 +56,7 @@ export default function Sidebar() {
         })
         return counts.toFixed(2)
     }
+    
     return (
         <Wrapper
             className=
@@ -72,6 +71,7 @@ export default function Sidebar() {
                 <ShoppedItems
                     key={item.id}
                     data={item}
+                    dispatch={dispatch}
                 />
             )}
             <Infrmation>

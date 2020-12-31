@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { myContext } from '../Context/context'
+import React from 'react'
 import { Increase, Decrease, Delete } from '../Action/actions'
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 import styled from 'styled-components'
@@ -33,9 +32,7 @@ cursor: pointer;
 const P = styled.p`
 text-align: center;
 `
-export default function ShoppedItems({ data }) {
-
-    const { dispatch } = useContext(myContext)
+export default function ShoppedItems({ data, dispatch }) {
 
     const handleIncrease = (id) => {
         dispatch(Increase(id))

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react'
-import { myContext } from '../Context/context'
+import React, { useState } from 'react'
 import { TotalShop } from '../Action/actions'
 import styled from 'styled-components'
 import { FaShoppingCart } from 'react-icons/fa'
@@ -36,8 +35,7 @@ margin-top: 1rem;
 letter-spacing: 0.1rem;
 text-align: center;
 `
-export default function Product({ item }) {
-    const { dispatch } = useContext(myContext)
+export default function Product({ item, dispatch }) {
     const [showButton, setShowButton] = useState(false)
 
     function handleShowShopping() {
