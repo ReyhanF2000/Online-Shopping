@@ -1,6 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
+import { data } from '../Data/data'
 import Product from './Product'
+import styled from 'styled-components'
 
 const Wrapper = styled.div`
 padding: 4rem 0;
@@ -22,7 +23,7 @@ const Items = styled.div`
   grid-column-gap: 1.5rem;
   grid-row-gap: 2rem;
 `
-export default function Products({ data, onTotalShop }) {
+export default function Products() {
     return (
         <Wrapper>
             <Box>
@@ -33,7 +34,6 @@ export default function Products({ data, onTotalShop }) {
                     <Product
                         key={item.id}
                         item={item}
-                        onShop={() => onTotalShop(item.id)}
                     />
                 )}
             </Items>

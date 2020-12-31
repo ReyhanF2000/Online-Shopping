@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { TotalShop } from '../Action/actions'
 import styled from 'styled-components'
 import { FaShoppingCart } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 
 const Wrapper = styled.div``
 
@@ -34,23 +36,31 @@ margin-top: 1rem;
 letter-spacing: 0.1rem;
 text-align: center;
 `
-export default function Product({ item, onShop }) {
-    const [show, setShow] = useState(false)
+export default function Product({ item }) {
+    const [showButton, setShowButton] = useState(false)
+
+    const dispatch = useDispatch()
+
     function handleShowShopping() {
-        setShow(true)
+        setShowButton(true)
     }
 
     function handleCloseShopping() {
-        setShow(false)
+        setShowButton(false)
     }
+
+    const handleTotalShop = (id) => {
+        dispatch(TotalShop(id))
+    }
+
     return (
         <Wrapper
             onMouseEnter={handleShowShopping}
             onMouseLeave={handleCloseShopping}>
             <Subwrapper>
                 <Img src={item.src} />
-                {show && <Button
-                    onClick={(e) => onShop(e)}
+                {showButton && <Button
+                    onClick={() => handleTotalShop(item.id)}
                 >
                     <FaShoppingCart />
                         Add to cart
