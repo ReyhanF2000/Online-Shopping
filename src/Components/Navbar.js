@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { FaBars, FaCartPlus } from 'react-icons/fa';
 import logo from '../Img/Logo.png';
+import { myContext } from '../Context/context';
+import { ShowSidebar } from '../Action/actions';
 
 const Wrapper = styled.div`
 position: sticky;
@@ -43,7 +45,20 @@ padding: 0 5px;
 border-radius: 30%;
 color: #fdfdfd;
 `
-export default function Navbar({ onClickShow, value }) {
+export default function Navbar() {
+    const { state, dispatch } = useContext(myContext)
+
+    function handleShowSidebar() {
+        dispatch(ShowSidebar(!state.show))
+    }
+
+    function calculateValue() {
+        let counts = 0
+        state.items.forEach(item => {
+            counts += item.number
+        })
+        return counts
+    }
     return (
         <Wrapper>
             <Subwrapper>
@@ -51,12 +66,12 @@ export default function Navbar({ onClickShow, value }) {
                     <FaBars />
                 </Span>
                 <Logo src={logo} />
-                <Cart onClick={onClickShow}>
+                <Cart onClick={handleShowSidebar}>
                     <Span>
                         <FaCartPlus />
                     </Span>
                     <ShopCount>
-                        {value}
+                        {calculateValue()}
                     </ShopCount>
                 </Cart>
             </Subwrapper>

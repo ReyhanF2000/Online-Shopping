@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { myContext } from '../Context/context'
+import { TotalShop } from '../Action/actions'
 import styled from 'styled-components'
 import { FaShoppingCart } from 'react-icons/fa'
 
@@ -34,23 +36,30 @@ margin-top: 1rem;
 letter-spacing: 0.1rem;
 text-align: center;
 `
-export default function Product({ item, onShop }) {
-    const [show, setShow] = useState(false)
+export default function Product({ item }) {
+    const { dispatch } = useContext(myContext)
+    const [showButton, setShowButton] = useState(false)
+
     function handleShowShopping() {
-        setShow(true)
+        setShowButton(true)
     }
 
     function handleCloseShopping() {
-        setShow(false)
+        setShowButton(false)
     }
+
+    const handleTotalShop = (id) => {
+        dispatch(TotalShop(id))
+    }
+
     return (
         <Wrapper
             onMouseEnter={handleShowShopping}
             onMouseLeave={handleCloseShopping}>
             <Subwrapper>
                 <Img src={item.src} />
-                {show && <Button
-                    onClick={(e) => onShop(e)}
+                {showButton && <Button
+                    onClick={() => handleTotalShop(item.id)}
                 >
                     <FaShoppingCart />
                         Add to cart

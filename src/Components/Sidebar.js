@@ -1,12 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { FaWindowClose } from 'react-icons/fa';
+import React, { useContext } from 'react'
+import { myContext } from '../Context/context'
+import { ShowSidebar, Reset } from '../Action/actions'
 import ShoppedItems from './ShoppedItems'
+import styled from 'styled-components'
+import { FaWindowClose } from 'react-icons/fa'
 import '../App.css';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``
 
-`
 const Close = styled.span`
 font-size: 1.7rem;
   cursor: pointer;
@@ -22,7 +23,6 @@ margin-top: 2rem;
 letter-spacing: 0.1rem;
 text-align: center;
 `
-
 const Price = styled.h3`
 text-transform: capitalize;
 margin-bottom: 1rem;
@@ -39,34 +39,49 @@ transition: all 0.3s linear;
 cursor: pointer;
 `
 const Total = styled.span``
-export default function Sidebar({ open, onClickClose, data, onINCREASE, onDECREASE, onDELETE, onRESET, totalPrice }) {
+
+export default function Sidebar() {
+    const { state, dispatch } = useContext(myContext)
+
+    function handleCloseSidebar() {
+        dispatch(ShowSidebar(!state.show))
+    }
+
+    function handleReset() {
+        dispatch(Reset())
+    }
+
+    function calculateTotalPrice() {
+        let counts = 0
+        state.items.forEach(item => {
+            counts += item.number * Number(item.price)
+        })
+        return counts.toFixed(2)
+    }
     return (
         <Wrapper
-        className=
-        {open ?
-            'sidebar open':
-            'sidebar close'}>
-            <Close onClick={onClickClose}>
+            className=
+            {state.show ?
+                'sidebar open' :
+                'sidebar close'}>
+            <Close onClick={handleCloseSidebar}>
                 <FaWindowClose />
             </Close>
             <Box>Your Cart</Box>
-            {data.map(item =>
+            {state.items.map(item =>
                 <ShoppedItems
                     key={item.id}
                     data={item}
-                    onINC={() => onINCREASE(item.id)}
-                    onDEC={() => onDECREASE(item.id)}
-                    onDEL={() => onDELETE(item.id)}
                 />
             )}
             <Infrmation>
                 <Price>
                     Your total is:
                     <Total>
-                        ${totalPrice}
+                        ${calculateTotalPrice()}
                     </Total>
                 </Price>
-                <Button onClick={onRESET}>CLEAR CART</Button>
+                <Button onClick={handleReset}>CLEAR CART</Button>
             </Infrmation>
         </Wrapper>
     )

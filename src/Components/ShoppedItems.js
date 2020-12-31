@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { myContext } from '../Context/context'
+import { Increase, Decrease, Delete } from '../Action/actions'
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 import styled from 'styled-components'
-import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 const Wrapper = styled.div``
 
@@ -31,7 +33,21 @@ cursor: pointer;
 const P = styled.p`
 text-align: center;
 `
-export default function ShoppedItems({ data, onINC, onDEC, onDEL }) {
+export default function ShoppedItems({ data }) {
+
+    const { dispatch } = useContext(myContext)
+
+    const handleIncrease = (id) => {
+        dispatch(Increase(id))
+    }
+    const handleDecrease = (id) => {
+        dispatch(Decrease(id))
+    }
+
+    const handleDelete = (id) => {
+        dispatch(Delete(id))
+    }
+
     return (<>
         {data.number && <Wrapper>
             <Item>
@@ -39,12 +55,12 @@ export default function ShoppedItems({ data, onINC, onDEC, onDEL }) {
                 <Wrapper>
                     <Title>{data.Title}</Title>
                     <Price>{data.price}€</Price>
-                    <Remove onClick={(e) => onDEL(e)}>remove</Remove>
+                    <Remove onClick={() => handleDelete(data.id)}>remove</Remove>
                 </Wrapper>
                 <Wrapper>
-                    <FaChevronUp onClick={(e) => onINC(e)} />
+                    <FaChevronUp onClick={() => handleIncrease(data.id)} />
                     <P>{data.number}</P>
-                    <FaChevronDown onClick={(e) => onDEC(e)} />
+                    <FaChevronDown onClick={() => handleDecrease(data.id)} />
                 </Wrapper>
             </Item>
         </Wrapper>
