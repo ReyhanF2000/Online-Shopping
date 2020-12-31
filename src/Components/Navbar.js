@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { FaBars, FaCartPlus } from 'react-icons/fa';
 import logo from '../Img/Logo.png';
-import { myContext } from '../Context/context';
 import { ShowSidebar } from '../Action/actions';
+import { DispatchContext } from '../Context/DispatchContext'
 
 const Wrapper = styled.div`
 position: sticky;
@@ -45,8 +45,9 @@ padding: 0 5px;
 border-radius: 30%;
 color: #fdfdfd;
 `
-export default function Navbar() {
-    const { state, dispatch } = useContext(myContext)
+export default function Navbar({ state }) {
+
+    const dispatch = useContext(DispatchContext)
 
     function handleShowSidebar() {
         dispatch(ShowSidebar(!state.show))
@@ -59,6 +60,7 @@ export default function Navbar() {
         })
         return counts
     }
+
     return (
         <Wrapper>
             <Subwrapper>

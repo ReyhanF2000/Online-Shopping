@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
-import { myContext } from '../Context/context'
 import { TotalShop } from '../Action/actions'
 import styled from 'styled-components'
 import { FaShoppingCart } from 'react-icons/fa'
+import { DispatchContext } from '../Context/DispatchContext'
 
 const Wrapper = styled.div``
 
@@ -37,8 +37,8 @@ letter-spacing: 0.1rem;
 text-align: center;
 `
 export default function Product({ item }) {
-    const { dispatch } = useContext(myContext)
     const [showButton, setShowButton] = useState(false)
+    const dispatch = useContext(DispatchContext)
 
     function handleShowShopping() {
         setShowButton(true)

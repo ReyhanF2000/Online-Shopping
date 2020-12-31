@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { myContext } from '../Context/context'
 import { Increase, Decrease, Delete } from '../Action/actions'
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 import styled from 'styled-components'
+import { DispatchContext } from '../Context/DispatchContext'
 
 const Wrapper = styled.div``
 
@@ -34,8 +34,7 @@ const P = styled.p`
 text-align: center;
 `
 export default function ShoppedItems({ data }) {
-
-    const { dispatch } = useContext(myContext)
+    const dispatch = useContext(DispatchContext)
 
     const handleIncrease = (id) => {
         dispatch(Increase(id))
