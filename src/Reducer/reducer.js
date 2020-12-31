@@ -47,7 +47,6 @@ function UnshiftItem(id, copyState, copyData) {
 }
 
 function handleTotalShopItems(state, payload) {
-    debugger
     const copyData = [...data]
     const copyState = [...state.items]
     const findSItem = copyState.find(item => item.id === payload)
